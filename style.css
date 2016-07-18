@@ -2,7 +2,8 @@
 	font-size: 5rem;
 }
 
-.fa-pause, .fa-stop {
+.fa-pause, 
+.fa-stop {
 	margin-left: 50px;
 }
 
