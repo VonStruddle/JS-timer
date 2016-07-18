@@ -3,19 +3,39 @@ var is_on = false;
 var loading_value = 0;
 var new_progress = 0;
 var paused = false;
+var max = 25;
+var minutes = 0;
+var seconds = 0;
 
 function beginTimer() {
 	interval = setInterval(function(){
 			loading_value++;
-			new_progress = loading_value * 100 / 25;
+			new_progress = (loading_value * 100) / (max * 60);
 			$('.progress-bar').attr('aria-valuenow', new_progress).css('width', new_progress + '%');
-			$('.progress-bar').text(new_progress + '%');
-			$('.timer').text(loading_value);
+			$('.progress-bar').text(Math.round(new_progress) + '%');
+			minutes = Math.floor(loading_value / 60);
+			seconds = loading_value % 60;
+			if (minutes < 10 && seconds < 10) {
+				$('.timer').text('0' + Math.floor(loading_value / 60) + ':0' + loading_value % 60);
+			} else if (minutes < 10) {
+				$('.timer').text('0' + Math.floor(loading_value / 60) + ':' + loading_value % 60);
+			} else if (seconds < 10) {
+				$('.timer').text(Math.floor(loading_value / 60) + ':0' + loading_value % 60);
+			} else {
+				$('.timer').text(Math.floor(loading_value / 60) + ':' + loading_value % 60);
+			}
 			is_on = true;
-			if (loading_value === 25) {
+			if (loading_value === max * 60) {
 				clearInterval(interval);
 				$('.fa-play').removeClass('playing');
 				is_on = false;
+				minutes = 0;
+				seconds = 0;
+				if (max === 25) {
+					max = 5;
+				} else {
+					max = 25;
+				}
 			}
 		}, 1000);
 }
@@ -52,7 +72,7 @@ $('.fa-pause').click(function(event) {
 	$('.fa-play').removeClass('playing');
 	setTimeout(function() {
 		$('.fa-pause').removeClass('pausing');	
-	}, 50);
+	}, 70);
 });
 
 // Ends pomodoro, clears timer and loading bar
@@ -61,5 +81,5 @@ $('.fa-stop').click(function(event) {
 	$(this).addClass('stoping');
 	setTimeout(function() {
 		$('.fa-stop').removeClass('stoping');	
-	}, 50);
+	}, 70);
 });
