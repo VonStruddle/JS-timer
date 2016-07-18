@@ -13,3 +13,7 @@
 .stoping {
 	color: darkred;
 }
+
+.pausing {
+	color : orange;
+}
