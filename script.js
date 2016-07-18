@@ -1,10 +1,10 @@
 var interval;
+var loading_value = 0;
+var new_progress = 0;
 
 // Begin pomodoro with animation of both timer and loading bar
 $('.fa-play').click(function(event) {
 	$(this).toggleClass('playing');
-	var loading_value = 0;
-	var new_progress = 0;
 	interval = setInterval(function(){
 		loading_value++;
 		new_progress = loading_value * 100 / 25;
@@ -16,6 +16,14 @@ $('.fa-play').click(function(event) {
 	}, 1000)
 });
 
+// Pause pomodoro, and restart timer and loading at same level
+$('fa-pause').click(function(event) {
+	clearInterval(interval);
+	setTimeout(function() {
+		$('.fa-pause').toggleClass('pausing');	
+	}, 50);
+});
+
 // Ends pomodoro, clears timer and loading bar
 $('.fa-stop').click(function(event) {
 	clearInterval(interval);
@@ -23,7 +31,9 @@ $('.fa-stop').click(function(event) {
 	$('.fa-play').removeClass('playing');
 	$('.progress-bar').attr('aria-valuenow', 0).css('width', '0%');
 	$('.timer').text('00');
+	loading_value = 0;
+	new_progress = 0;
 	setTimeout(function() {
 		$('.fa-stop').toggleClass('stoping');	
-	}, 50)
+	}, 50);
 });
