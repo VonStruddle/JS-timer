@@ -9,6 +9,7 @@ function beginTimer() {
 			loading_value++;
 			new_progress = loading_value * 100 / 25;
 			$('.progress-bar').attr('aria-valuenow', new_progress).css('width', new_progress + '%');
+			$('.progress-bar').text(new_progress + '%');
 			$('.timer').text(loading_value);
 			is_on = true;
 			if (loading_value === 25) {
@@ -24,6 +25,7 @@ function resetLayout() {
 	is_on = false;
 	$('.fa-play').removeClass('playing');
 	$('.progress-bar').attr('aria-valuenow', 0).css('width', '0%');
+	$('.progress-bar').text('0%');
 	$('.timer').text('00');
 	loading_value = 0;
 	new_progress = 0;
