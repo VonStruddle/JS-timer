@@ -9,3 +9,7 @@
 .playing {
 	color: darkgreen;
 }
+
+.stoping {
+	color: darkred;
+}
