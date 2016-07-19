@@ -40,14 +40,6 @@ function beginTimer() {
 		}, 1000);
 }
 
-function createBootstrapAlert() {
-	if (max === 25) {
-		$('body').prepend('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Get to work! You launched a 25 minutes Pomodoro!</div>');
-	} else {
-		$('body').prepend('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Time to rest for 5 minutes!</div>');
-	}
-}
-
 function resetLayout() {
 	clearInterval(interval);
 	is_on = false;
@@ -65,7 +57,6 @@ $('.fa-play').click(function(event) {
 		resetLayout();
 		$(this).addClass('playing');
 		beginTimer();
-		createBootstrapAlert();
 	} else if (paused === true) {
 		$(this).addClass('playing');
 		beginTimer();
